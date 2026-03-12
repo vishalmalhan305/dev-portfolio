@@ -1,85 +1,86 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Mail, Phone, Linkedin, Github } from 'lucide-react';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission (for now, just log)
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message!');
-    setFormData({ name: '', email: '', message: '' });
-  };
+  const contactItems = [
+    {
+      icon: <Mail size={20} />,
+      label: 'Email',
+      value: 'vishal.malhan305@gmail.com',
+      href: 'mailto:vishal.malhan305@gmail.com',
+    },
+    {
+      icon: <Phone size={20} />,
+      label: 'Phone',
+      value: '647-897-2953',
+      href: 'tel:6478972953',
+    },
+    {
+      icon: <Linkedin size={20} />,
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/vishalmalhan',
+      href: 'https://linkedin.com/in/vishalmalhan',
+    },
+    {
+      icon: <Github size={20} />,
+      label: 'GitHub',
+      value: 'github.com/vishalmalhan305',
+      href: 'https://github.com/vishalmalhan305',
+    },
+  ];
 
   return (
     <section id="contact" className="bg-yotei-black text-yotei-white py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-12 text-yotei-gold">Contact Me</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h3 className="text-2xl font-semibold mb-4 text-yotei-gold">Get In Touch</h3>
-            <p className="mb-4 text-yotei-cream">Feel free to reach out for collaborations or just to say hello!</p>
-            <div className="space-y-2 text-yotei-cream">
-              <p><strong className="text-yotei-gold">Email:</strong> vishal.malhan305@gmail.com</p>
-              <p><strong className="text-yotei-gold">Phone:</strong> 647-897-2953</p>
-              <p><strong className="text-yotei-gold">LinkedIn:</strong> <a href="https://linkedin.com/in/vishalmalhan" className="text-yotei-gold hover:text-yotei-red">linkedin.com/in/vishalmalhan</a></p>
-              <p><strong className="text-yotei-gold">GitHub:</strong> <a href="https://github.com/vishalmalhan305" className="text-yotei-gold hover:text-yotei-red">github.com/vishalmalhan305</a></p>
-            </div>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block mb-2 text-yotei-gold">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full p-3 bg-yotei-dark-gray border border-yotei-gold/40 rounded-lg focus:outline-none focus:border-yotei-gold text-yotei-white"
-                  required
-                />
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .contact-card {
+          animation: fadeUp 0.6s ease-out forwards;
+        }
+        .contact-card:nth-child(1) { animation-delay: 0.1s; }
+        .contact-card:nth-child(2) { animation-delay: 0.2s; }
+        .contact-card:nth-child(3) { animation-delay: 0.3s; }
+        .contact-card:nth-child(4) { animation-delay: 0.4s; }
+      `}</style>
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
+          Get In Touch
+        </h2>
+        <p className="mb-12 text-yotei-cream text-lg">
+          Let's connect! Feel free to reach out for collaborations or just to say hello.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {contactItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-card flex items-center gap-4 p-6 rounded-xl border border-yotei-gold/30 hover:border-yotei-gold/80 bg-gradient-to-br from-yotei-dark-gray to-yotei-black hover:from-yotei-dark-gray/80 hover:to-yotei-dark-gray transition-all duration-300 group text-left hover:shadow-lg hover:shadow-yotei-gold/20 hover:-translate-y-1"
+            >
+              <div className="text-yotei-gold group-hover:text-white group-hover:scale-125 transition-all duration-300 flex-shrink-0 bg-yotei-gold/10 p-3 rounded-lg">
+                {item.icon}
               </div>
-              <div>
-                <label htmlFor="email" className="block mb-2 text-yotei-gold">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full p-3 bg-yotei-dark-gray border border-yotei-gold/40 rounded-lg focus:outline-none focus:border-yotei-gold text-yotei-white"
-                  required
-                />
+
+              <div className="flex-1">
+                <p className="text-xs text-yotei-cream/60 uppercase tracking-widest mb-1 font-semibold">
+                  {item.label}
+                </p>
+                <p className="text-yotei-gold font-medium text-sm break-all group-hover:text-white transition-colors">
+                  {item.value}
+                </p>
               </div>
-              <div>
-                <label htmlFor="message" className="block mb-2 text-yotei-gold">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="5"
-                  className="w-full p-3 bg-yotei-dark-gray border border-yotei-gold/40 rounded-lg focus:outline-none focus:border-yotei-gold text-yotei-white"
-                  required
-                ></textarea>
+              
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg className="w-5 h-5 text-yotei-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </div>
-              <button type="submit" className="bg-yotei-gold hover:bg-yotei-red text-yotei-black hover:text-white px-6 py-3 rounded-lg transition duration-300 font-semibold">
-                Send Message
-              </button>
-            </form>
-          </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>

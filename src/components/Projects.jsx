@@ -1,4 +1,5 @@
 import React from 'react';
+import { Code2, ExternalLink } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
@@ -27,29 +28,81 @@ const Projects = () => {
 
   return (
     <section id="projects" className="bg-yotei-black text-yotei-white py-20">
+      <style>{`
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .project-card {
+          animation: slideUp 0.6s ease-out forwards;
+        }
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:hover::before {
+          opacity: 1;
+        }
+        .project-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+          border-radius: 0.5rem;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+      `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-12 text-yotei-gold">Projects</h2>
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
+            Featured Projects
+          </h2>
+          <p className="text-yotei-cream text-lg max-w-2xl mx-auto">
+            Showcasing my expertise in full-stack development, cloud architecture, and modern web technologies.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="bg-yotei-gray p-6 rounded-lg shadow-lg hover:scale-105 transition duration-300 border border-yotei-gold/30 hover:border-yotei-gold">
-              <h3 className="text-2xl font-semibold mb-4 text-yotei-gold">{project.title}</h3>
-              <p className="mb-4 text-yotei-cream">{project.description}</p>
-              <div className="mb-4">
-                <h4 className="font-semibold mb-2 text-yotei-gold">Technologies:</h4>
+            <div key={index} className="project-card relative bg-yotei-gray p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 border border-yotei-gold/30 hover:border-yotei-gold hover:-translate-y-2 group">
+              <div className="flex items-center gap-2 mb-4">
+                <Code2 className="w-5 h-5 text-yotei-gold" />
+                <h3 className="text-xl font-semibold text-yotei-gold group-hover:text-white transition-colors">
+                  {project.title}
+                </h3>
+              </div>
+              <p className="mb-4 text-yotei-cream text-sm leading-relaxed">
+                {project.description.substring(0, 150)}...
+              </p>
+              <div className="mb-6">
+                <h4 className="font-semibold mb-3 text-yotei-gold text-sm">Tech Stack:</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, i) => (
-                    <span key={i} className="bg-yotei-red text-yotei-white px-2 py-1 rounded text-sm">
+                    <span 
+                      key={i} 
+                      className="bg-gradient-to-r from-yotei-gold/80 to-yotei-gold/60 text-yotei-black px-3 py-1 rounded-full text-xs font-semibold hover:from-yotei-gold hover:to-yotei-gold transition-all"
+                    >
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="flex gap-4">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-yotei-gold hover:text-yotei-red transition duration-300">
-                  GitHub
+              <div className="flex gap-4 pt-4 border-t border-yotei-gold/20">
+                <a 
+                  href={project.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-sm"
+                >
+                  <Code2 className="w-4 h-4" /> GitHub
                 </a>
-                <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-yotei-gold hover:text-yotei-red transition duration-300">
-                  Live Demo
+                <a 
+                  href={project.demo} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-sm"
+                >
+                  <ExternalLink className="w-4 h-4" /> Live Demo
                 </a>
               </div>
             </div>
