@@ -27,7 +27,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="bg-yotei-black text-yotei-white py-20">
+    <section id="projects" className="bg-yotei-black text-yotei-white py-12 sm:py-20">
       <style>{`
         @keyframes slideUp {
           from { opacity: 0; transform: translateY(20px); }
@@ -54,33 +54,33 @@ const Projects = () => {
         }
       `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
+        <div className="mb-8 sm:mb-12 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
             Featured Projects
           </h2>
-          <p className="text-yotei-cream text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-lg text-yotei-cream max-w-2xl mx-auto">
             Showcasing my expertise in full-stack development, cloud architecture, and modern web technologies.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
           {projects.map((project, index) => (
-            <div key={index} className="project-card relative bg-yotei-gray p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 border border-yotei-gold/30 hover:border-yotei-gold hover:-translate-y-2 group">
+            <div key={index} className="project-card relative bg-yotei-gray p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 border border-yotei-gold/30 hover:border-yotei-gold hover:-translate-y-2 group">
               <div className="flex items-center gap-2 mb-4">
-                <Code2 className="w-5 h-5 text-yotei-gold" />
-                <h3 className="text-xl font-semibold text-yotei-gold group-hover:text-white transition-colors">
+                <Code2 className="w-5 h-5 text-yotei-gold flex-shrink-0" />
+                <h3 className="text-lg sm:text-xl font-semibold text-yotei-gold group-hover:text-white transition-colors">
                   {project.title}
                 </h3>
               </div>
-              <p className="mb-4 text-yotei-cream text-sm leading-relaxed">
+              <p className="mb-4 text-yotei-cream text-xs sm:text-sm leading-relaxed">
                 {project.description.substring(0, 150)}...
               </p>
               <div className="mb-6">
-                <h4 className="font-semibold mb-3 text-yotei-gold text-sm">Tech Stack:</h4>
+                <h4 className="font-semibold mb-3 text-yotei-gold text-xs sm:text-sm">Tech Stack:</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, i) => (
                     <span 
                       key={i} 
-                      className="bg-gradient-to-r from-yotei-gold/80 to-yotei-gold/60 text-yotei-black px-3 py-1 rounded-full text-xs font-semibold hover:from-yotei-gold hover:to-yotei-gold transition-all"
+                      className="bg-gradient-to-r from-yotei-gold/80 to-yotei-gold/60 text-yotei-black px-2 sm:px-3 py-1 rounded-full text-xs font-semibold hover:from-yotei-gold hover:to-yotei-gold transition-all"
                     >
                       {tech}
                     </span>
@@ -92,7 +92,7 @@ const Projects = () => {
                   href={project.github} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-sm"
+                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-xs sm:text-sm"
                 >
                   <Code2 className="w-4 h-4" /> GitHub
                 </a>
@@ -100,7 +100,7 @@ const Projects = () => {
                   href={project.demo} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-sm"
+                  className="flex items-center gap-2 text-yotei-gold hover:text-yotei-cream transition-colors duration-300 font-semibold text-xs sm:text-sm"
                 >
                   <ExternalLink className="w-4 h-4" /> Live Demo
                 </a>

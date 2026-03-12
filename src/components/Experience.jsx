@@ -24,7 +24,7 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="bg-yotei-dark-gray text-yotei-white py-20">
+    <section id="experience" className="bg-yotei-dark-gray text-yotei-white py-12 sm:py-20">
       <style>{`
         @keyframes slideIn {
           from { opacity: 0; transform: translateX(-20px); }
@@ -47,44 +47,48 @@ const Experience = () => {
           border-radius: 50%;
           transition: all 0.3s ease;
         }
+        @media (max-width: 640px) {
+          .timeline-marker { left: -28px; width: 18px; height: 18px; border-width: 2px; top: 20px; }
+          .timeline-line { left: 0px; }
+        }
       `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
+        <div className="mb-8 sm:mb-12 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
             Professional Experience
           </h2>
-          <p className="text-yotei-cream text-lg max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base lg:text-lg text-yotei-cream max-w-2xl mx-auto">
             My journey building innovative solutions through hands-on project experience.
           </p>
         </div>
-        <div className="space-y-6 relative">
-          <div className="absolute left-[6px] top-0 bottom-0 w-[2px] bg-yotei-gold/30"></div>
+        <div className="space-y-4 sm:space-y-6 relative">
+          <div className="timeline-line absolute left-[6px] sm:left-[6px] top-0 bottom-0 w-[2px] bg-yotei-gold/30"></div>
           {experiences.map((exp, index) => (
-            <div key={index} className="timeline-item relative margin-left-12 ml-12 bg-gradient-to-r from-yotei-black to-yotei-dark-gray p-8 rounded-lg shadow-lg hover:shadow-2xl border border-yotei-gold/30 hover:border-yotei-gold/80 transition-all duration-300 group">
+            <div key={index} className="timeline-item relative ml-8 sm:ml-12 bg-gradient-to-r from-yotei-black to-yotei-dark-gray p-4 sm:p-8 rounded-lg shadow-lg hover:shadow-2xl border border-yotei-gold/30 hover:border-yotei-gold/80 transition-all duration-300 group">
               <div className="timeline-marker bg-yotei-gold group-hover:bg-yotei-cream group-hover:scale-125 transition-all"></div>
               
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-start gap-3">
-                  <Briefcase className="w-6 h-6 text-yotei-gold mt-1 flex-shrink-0" />
+              <div className="flex items-start justify-between mb-4 flex-col sm:flex-row">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-yotei-gold mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-2xl font-bold text-yotei-gold group-hover:text-white transition-colors">
+                    <h3 className="text-lg sm:text-2xl font-bold text-yotei-gold group-hover:text-white transition-colors">
                       {exp.title}
                     </h3>
-                    <h4 className="text-lg text-yotei-cream">{exp.company}</h4>
+                    <h4 className="text-sm sm:text-lg text-yotei-cream">{exp.company}</h4>
                   </div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-2 text-yotei-cream/70 text-sm mb-4">
-                <Calendar className="w-4 h-4 text-yotei-gold" />
+              <div className="flex items-center gap-2 text-yotei-cream/70 text-xs sm:text-sm mb-4">
+                <Calendar className="w-4 h-4 text-yotei-gold flex-shrink-0" />
                 {exp.duration}
               </div>
               
-              <p className="text-yotei-cream leading-relaxed">
+              <p className="text-xs sm:text-base text-yotei-cream leading-relaxed">
                 {exp.description}
               </p>
               
-              <div className="mt-4 flex items-center gap-2 text-yotei-gold font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="mt-4 flex items-center gap-2 text-yotei-gold font-semibold text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity">
                 Learn more <ArrowRight className="w-4 h-4" />
               </div>
             </div>

@@ -51,24 +51,29 @@ const Hero = () => {
           display: inline-block;
           margin-left: 2px;
         }
+        @media (max-width: 640px) {
+          .hero-title { font-size: 2.25rem; line-height: 2.5rem; }
+          .hero-subtitle { font-size: 1.125rem; line-height: 1.75rem; }
+          .hero-min-height { min-height: 2.5rem; }
+        }
       `}</style>
       <TubesBackground className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-yotei-white">
+        <div className="text-center px-4 sm:px-6 md:px-8 max-w-4xl">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-yotei-white hero-title">
             VISHAL MALHAN
           </h1>
-          <h2 className="text-2xl md:text-3xl mb-4 text-yotei-gold min-h-[3.5rem] md:min-h-[4rem] flex items-center justify-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl mb-4 text-yotei-gold hero-min-height md:min-h-[4rem] flex items-center justify-center hero-subtitle">
             {displayText}
             <span className="cursor-blink">|</span>
           </h2>
-          <p className="text-lg md:text-xl mb-8 text-yotei-cream">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-8 text-yotei-cream max-w-2xl mx-auto">
             Recent Software Engineering graduate with expertise in full-stack development, cloud-native applications, and modern web technologies.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => scrollToSection('projects')} className="bborder-2 border-yotei-gold text-yotei-gold hover:bg-yotei-gold hover:text-yotei-black px-6 py-3 rounded-lg transition duration-300 font-semibold">
+            <button onClick={() => scrollToSection('projects')} className="border-2 border-yotei-gold text-yotei-gold hover:bg-yotei-gold hover:text-yotei-black px-6 py-3 rounded-lg transition duration-300 font-semibold text-sm sm:text-base">
               View Projects
             </button>
-            <button className="border-2 border-yotei-gold text-yotei-gold hover:bg-yotei-gold hover:text-yotei-black px-6 py-3 rounded-lg transition duration-300 font-semibold">
+            <button className="border-2 border-yotei-gold text-yotei-gold hover:bg-yotei-gold hover:text-yotei-black px-6 py-3 rounded-lg transition duration-300 font-semibold text-sm sm:text-base">
               Download Resume
             </button>
           </div>
