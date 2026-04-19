@@ -7,13 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        'yotei-black': '#0D0D0D',
-        'yotei-dark-gray': '#1A1A1A',
-        'yotei-gray': '#2A2A2A',
-        'yotei-white': '#FFFFFF',
-        'yotei-cream': '#F5E6D3',
-        'yotei-gold': '#D4AF37',
-        'yotei-red': '#C41E3A',
+        'cyber-bg':      '#080b14',
+        'cyber-cyan':    '#7DF9FF',
+        'cyber-blue':    '#0A66C2',
+        'cyber-text':    '#c9d1d9',
+        'cyber-dim':     '#8b949e',
+        // yotei aliases remapped to cyber palette — all existing component classes work unchanged
+        'yotei-black':     '#080b14',
+        'yotei-dark-gray': '#0d1117',
+        'yotei-gray':      '#161b22',
+        'yotei-white':     '#FFFFFF',
+        'yotei-cream':     '#c9d1d9',
+        'yotei-gold':      '#7DF9FF',
+        'yotei-red':       '#C41E3A',
+      },
+      fontFamily: {
+        'space': ['Space Grotesk', 'sans-serif'],
+        'mono':  ['JetBrains Mono', 'monospace'],
       },
     },
   },

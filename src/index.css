@@ -1,15 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --cyan: #7DF9FF;
+  --bg: #080b14;
+  --border: rgba(125,249,255,0.12);
+  --surface: rgba(255,255,255,0.04);
+  --text: #c9d1d9;
+  --dim: #8b949e;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,16 +18,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 html {
+  scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
 }
@@ -36,12 +29,28 @@ body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: none;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  /* Restore pointer cursor — overrides all inline cursor:none */
+  a, button, .flip-card, label, [role="button"] { cursor: pointer !important; }
+  canvas { cursor: grab !important; }
+  canvas:active { cursor: grabbing !important; }
+  /* Remove 300ms tap delay */
+  a, button, input, select, textarea { touch-action: manipulation; }
 }
+
+a {
+  font-weight: 500;
+  color: var(--cyan);
+  text-decoration: inherit;
+}
+a:hover { opacity: 0.85; }
 
 button {
   border-radius: 8px;
@@ -50,27 +59,134 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:focus, button:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
-  a:hover {
-    color: #747bff;
+}
+
+/* Ripple on click */
+@keyframes rippleOut {
+  from { width: 0; height: 0; opacity: 0.7; transform: translate(-50%, -50%); }
+  to   { width: 120px; height: 120px; opacity: 0; transform: translate(-50%, -50%); }
+}
+.ripple {
+  position: fixed;
+  border-radius: 50%;
+  border: 2px solid #7DF9FF;
+  pointer-events: none;
+  z-index: 9000;
+  animation: rippleOut 0.7s ease-out forwards;
+}
+
+/* Status pill pulse */
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+}
+.status-dot-pulse { animation: statusPulse 1.8s infinite; }
+
+/* Scroll hint bounce */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+.scroll-hint-bounce { animation: scrollBounce 2.5s infinite; }
+
+/* Cursor blink for terminal */
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink-anim { animation: cursorBlink 0.7s infinite; }
+
+/* Centered Timeline Styles */
+.timeline-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(125,249,255,0.15);
+  left: 6px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-left: 36px;
+  margin-bottom: 24px;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 28px;
+  left: -37px;
+  width: 14px;
+  height: 14px;
+  background: #7DF9FF;
+  border-radius: 50%;
+  border: 2px solid #080b14;
+  box-shadow: 0 0 8px rgba(125,249,255,0.5);
+  z-index: 2;
+}
+
+/* Base flex alignments for mobile (left-aligned) */
+.timeline-card {
+  text-align: left;
+}
+.timeline-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.timeline-date-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .timeline-line {
+    left: 50%;
+    transform: translateX(-50%);
   }
-  button {
-    background-color: #f9f9f9;
+  
+  .timeline-item {
+    width: calc(50% - 30px);
+    margin-left: 0;
+    margin-bottom: 32px;
+  }
+  
+  .timeline-item:nth-child(odd) {
+    margin-right: auto;
+  }
+  
+  .timeline-item:nth-child(even) {
+    margin-left: auto;
+  }
+
+  .timeline-item:nth-child(odd) .timeline-dot {
+    left: auto;
+    right: -38px;
+  }
+
+  .timeline-item:nth-child(even) .timeline-dot {
+    left: -38px;
   }
 }

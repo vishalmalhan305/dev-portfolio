@@ -1,68 +1,152 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GraduationCap, MapPin, Lightbulb } from 'lucide-react';
 
-const About = () => {
+const profileLines = [
+  { k: 'name',     v: '"Vishal Malhan"' },
+  { k: 'role',     v: '"Software Developer"' },
+  { k: 'school',   v: '"Centennial College"',         c: '# Advanced Diploma, Class of 2025' },
+  { k: 'gpa',      v: '4.0 / 4.5' },
+  { k: 'location', v: '"Unionville, ON (GTA)"' },
+  { k: 'status',   v: '"Open to opportunities 🟢"' },
+  { k: 'email',    v: '"vishal.malhan305@gmail.com"' },
+];
+
+const Terminal = () => {
+  const [lines,   setLines]   = useState([]);
+  const [running, setRunning] = useState(false);
+  const timers = useRef([]);
+
+  const replay = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    setLines([]);
+    setRunning(true);
+    let delay = 400;
+    profileLines.forEach((line) => {
+      const t = setTimeout(() => {
+        setLines((prev) => [...prev, line]);
+      }, delay);
+      timers.current.push(t);
+      delay += 220 + Math.random() * 80;
+    });
+    const done = setTimeout(() => setRunning(false), delay + 200);
+    timers.current.push(done);
+  };
+
+  useEffect(() => {
+    replay();
+    return () => timers.current.forEach(clearTimeout);
+  }, []);
+
   return (
-    <section id="about" className="bg-yotei-black text-yotei-white py-12 sm:py-20">
-      <style>{`
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-          50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
-        }
-        .about-image {
-          animation: glow 3s ease-in-out infinite;
-        }
-      `}</style>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 text-transparent bg-clip-text bg-gradient-to-r from-yotei-gold to-yotei-cream">
-          About Me
-        </h2>
-        <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-12">
-          <div className="about-image w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 bg-gradient-to-br from-yotei-gold/20 to-yotei-gray rounded-full flex items-center justify-center border-3 border-yotei-gold/50 flex-shrink-0">
-            <span className="text-6xl sm:text-7xl md:text-8xl animate-bounce" style={{ animationDuration: '3000ms' }}><img
-  src="src/assets/Avatar.jpg"
-  alt="Vishal Malhan"
-  className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-yotei-gold animate-bounce"
-  style={{ animationDuration: '2s' }}
-/></span>
-          </div>
-          <div className="flex-1">
-            <p className="text-sm sm:text-base lg:text-lg mb-6 text-yotei-cream leading-relaxed">
-              Recent Software Engineering graduate with strong hands-on experience in full-stack development and cloud-native application design. Passionate about building reliable, secure, and user-friendly software. Skilled in Java, React, Spring Boot, AWS, and CI/CD pipelines. Proven ability to deliver real-world projects in collaborative and fast-paced environments.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              <div className="bg-gradient-to-br from-yotei-gray to-yotei-dark-gray p-4 sm:p-6 rounded-lg border border-yotei-gold/30 hover:border-yotei-gold transition-colors duration-300">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                  <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-yotei-gold flex-shrink-0" />
-                  <h3 className="text-lg sm:text-xl font-semibold text-yotei-gold">Education</h3>
-                </div>
-                <p className="text-sm sm:text-base text-yotei-cream mb-1">Advanced Diploma in Software Engineering Technology</p>
-                <p className="text-xs sm:text-sm text-yotei-cream/70 mb-2">Centennial College, Toronto, ON</p>
-                <p className="text-xs sm:text-sm text-yotei-gold font-semibold">GPA: 4.0/4.5 • Graduated April 2025</p>
-              </div>
-              <div className="bg-gradient-to-br from-yotei-gray to-yotei-dark-gray p-4 sm:p-6 rounded-lg border border-yotei-gold/30 hover:border-yotei-gold transition-colors duration-300">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-yotei-gold flex-shrink-0" />
-                  <h3 className="text-lg sm:text-xl font-semibold text-yotei-gold">Location</h3>
-                </div>
-                <p className="text-sm sm:text-base text-yotei-cream mb-3">Unionville, Ontario</p>
-                <p className="text-xs sm:text-sm text-yotei-cream/70">Greater Toronto Area</p>
-              </div>
-              <div className="md:col-span-2 bg-gradient-to-br from-yotei-gray to-yotei-dark-gray p-4 sm:p-6 rounded-lg border border-yotei-gold/30 hover:border-yotei-gold transition-colors duration-300">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3">
-                  <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-yotei-gold flex-shrink-0" />
-                  <h3 className="text-lg sm:text-xl font-semibold text-yotei-gold">Key Strengths</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-yotei-cream leading-relaxed">
-                  Strong analytical and problem-solving abilities • Excellent communication and teamwork skills • Ability to adapt quickly in dynamic environments • Multilingual: Fluent in English, Hindi, and Punjabi • Passionate about continuous learning
-                </p>
-              </div>
+    <div style={{ background: '#0d1117', border: '1px solid rgba(125,249,255,0.12)', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 0 60px rgba(125,249,255,0.04)', marginBottom: '40px' }}>
+      {/* Terminal bar */}
+      <div style={{ background: 'rgba(255,255,255,0.03)', padding: '14px 20px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid rgba(125,249,255,0.08)' }}>
+        <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f57', display: 'inline-block' }} />
+        <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#febc2e', display: 'inline-block' }} />
+        <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#28c840', display: 'inline-block' }} />
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', color: '#8b949e', margin: '0 auto' }}>bash — vishal@macbook</span>
+        <button
+          onClick={replay}
+          style={{ background: 'transparent', border: '1px solid rgba(125,249,255,0.12)', color: '#7DF9FF', fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', padding: '5px 12px', borderRadius: '6px', cursor: 'none', letterSpacing: '1px', transition: 'all 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(125,249,255,0.08)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+        >
+          ↺ re-run
+        </button>
+      </div>
+      {/* Terminal body */}
+      <div className="terminal-body" style={{ padding: 'clamp(16px,4vw,28px) clamp(16px,4vw,32px)' }}>
+        <div>
+          <span className="t-prompt">vishal@dev:~$</span>{' '}
+          <span className="t-cmd">cat profile.yaml</span>
+        </div>
+        <div style={{ marginTop: '14px' }}>
+          {lines.map((line, i) => (
+            <div key={i}>
+              <span className="t-key">{line.k}</span>
+              <span style={{ color: '#8b949e' }}>: </span>
+              <span className="t-str">{line.v}</span>
+              {line.c && <span className="t-comment"> {line.c}</span>}
             </div>
+          ))}
+          {running && (
+            <span
+              className="cursor-blink-anim"
+              style={{ display: 'inline-block', width: '9px', height: '17px', background: '#7DF9FF', verticalAlign: 'middle' }}
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const About = () => (
+  <section id="about" className="reveal" style={{ padding: '80px 24px', maxWidth: '1100px', margin: '0 auto' }}>
+    <div className="section-label">01 — Identity</div>
+    <div style={{ fontSize: 'clamp(28px,4vw,42px)', fontWeight: 700, color: '#fff', marginBottom: '40px' }}>
+      whoami
+    </div>
+
+    <Terminal />
+
+    {/* Info cards */}
+    <div className="flex flex-col md:flex-row items-start gap-8">
+      <div className="flex-1">
+        <p style={{ fontSize: '15px', color: '#c9d1d9', lineHeight: 1.7, marginBottom: '24px' }}>
+          Recent Software Engineering graduate with strong hands-on experience in full-stack development and cloud-native application design. Passionate about building reliable, secure, and user-friendly software. Skilled in Java, React, Spring Boot, AWS, and CI/CD pipelines.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            {
+              icon: <GraduationCap size={18} style={{ color: '#7DF9FF', flexShrink: 0 }} />,
+              title: 'Education',
+              lines: ['Advanced Diploma in Software Engineering Technology', 'Centennial College, Toronto, ON', 'GPA: 4.0/4.5 · Graduated April 2025'],
+              boldLast: true,
+            },
+            {
+              icon: <MapPin size={18} style={{ color: '#7DF9FF', flexShrink: 0 }} />,
+              title: 'Location',
+              lines: ['Unionville, Ontario', 'Greater Toronto Area · Available immediately'],
+            },
+          ].map((card) => (
+            <div
+              key={card.title}
+              style={{ background: '#0d1117', padding: '20px', borderRadius: '12px', border: '1px solid rgba(125,249,255,0.1)', transition: 'border-color 0.3s' }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(125,249,255,0.35)'}
+              onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(125,249,255,0.1)'}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                {card.icon}
+                <span style={{ fontWeight: 600, color: '#7DF9FF', fontSize: '15px' }}>{card.title}</span>
+              </div>
+              {card.lines.map((l, i) => (
+                <p key={i} style={{ fontSize: i === card.lines.length - 1 && card.boldLast ? '12px' : '13px', color: i === card.lines.length - 1 && card.boldLast ? '#7DF9FF' : i === card.lines.length - 1 ? '#8b949e' : '#c9d1d9', marginBottom: '4px', fontWeight: i === card.lines.length - 1 && card.boldLast ? 600 : 400 }}>
+                  {l}
+                </p>
+              ))}
+            </div>
+          ))}
+
+          <div
+            className="col-span-1 md:col-span-2"
+            style={{ background: '#0d1117', padding: '20px', borderRadius: '12px', border: '1px solid rgba(125,249,255,0.1)', transition: 'border-color 0.3s' }}
+            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(125,249,255,0.35)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(125,249,255,0.1)'}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+              <Lightbulb size={18} style={{ color: '#7DF9FF', flexShrink: 0 }} />
+              <span style={{ fontWeight: 600, color: '#7DF9FF', fontSize: '15px' }}>Key Strengths</span>
+            </div>
+            <p style={{ fontSize: '13px', color: '#c9d1d9', lineHeight: 1.7 }}>
+              Strong analytical and problem-solving abilities · Excellent communication and teamwork · Adapts quickly in dynamic environments · Multilingual: English, Hindi, Punjabi · Passionate about continuous learning
+            </p>
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default About;
